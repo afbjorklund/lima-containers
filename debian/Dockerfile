@@ -6,7 +6,7 @@ RUN mkdir -p /etc/conf.d
 RUN rm -f /etc/init.d/cgroups /etc/init.d/hwclock.sh
 RUN echo 'rc_need="!sysfs !cgroups !net !mountkernfs !localmount"' >>/etc/rc.conf
 
-ENTRYPOINT ["/sbin/openrc-init"]
+ENTRYPOINT ["/usr/sbin/openrc-init"]
 
 RUN apt-get update && apt-get install -y --no-install-recommends openssh-server && rm -rf /var/lib/apt/lists/* \
 && rm -rf /usr/bin/systemctl /lib/systemd/systemd /etc/systemd /usr/lib/systemd /var/lib/systemd /etc/machine-id
