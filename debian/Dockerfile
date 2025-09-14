@@ -8,8 +8,10 @@ RUN echo 'rc_need="!sysfs !cgroups !net !mountkernfs !localmount"' >>/etc/rc.con
 
 ENTRYPOINT ["/sbin/openrc-init"]
 
-RUN apt-get update && apt-get install -y --no-install-recommends openssh-server && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y --no-install-recommends sudo && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends openssh-server && rm -rf /var/lib/apt/lists/* \
+&& rm -rf /usr/bin/systemctl /lib/systemd/systemd /etc/systemd /usr/lib/systemd /var/lib/systemd /etc/machine-id
+RUN apt-get update && apt-get install -y --no-install-recommends sudo && rm -rf /var/lib/apt/lists/* \
+&& rm -rf /usr/lib/systemd /etc/ssh/ssh_host*
 
 EXPOSE 22
 
@@ -18,5 +20,3 @@ RUN apt-get update && apt-get install -y --no-install-recommends iptables && rm 
 RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
 RUN apt-get update && apt-get install -y --no-install-recommends sshfs && rm -rf /var/lib/apt/lists/*
 RUN echo "user_allow_other" >>/etc/fuse.conf
-
-RUN rm -f /usr/bin/systemctl /lib/systemd/systemd
